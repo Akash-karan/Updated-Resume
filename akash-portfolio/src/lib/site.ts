@@ -1,0 +1,20 @@
+export const site = {
+  name: "Akash R",
+  role: "Product Designer",
+  title: "Akash R — Product Designer",
+  description:
+    "Akash R is a Product Designer turning ideas into thoughtful, curious, human-centred screens. Portfolio, work, and what makes me tick.",
+  url: "https://akashr.design",
+  email: "itsakashkaran@gmail.com",
+  resume: "https://drive.google.com/file/d/1LixEetWnfCoAt-cY_R8auY8nwtrd6SdX/view?usp=drive_link",
+  socials: {
+    linkedin: "https://www.linkedin.com/in/akashux/",
+    x: "https://x.com/Akhas_R",
+    behance: "https://www.behance.net/Akash_UX",
+  },
+} as const;
+
+export const nav = [
+  { label: "About Me", href: "#about" },
+  { label: "Projects", href: "#works" },
+] as const;

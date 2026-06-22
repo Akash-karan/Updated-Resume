@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand / accent */
+  --color-brand: #dc6803;
+  --color-brand-hover: #b8590a;
+
+  /* Text */
+  --color-ink: #101828;
+  --color-ink-soft: #475467;
+  --color-paper: #ffffff;
+
+  /* Surfaces */
+  --color-canvas: #fdfcf9;
+  --color-note-blue: #b9e6fe;
+  --color-note-yellow: #ffd84d;
+  --color-footer: #0e0e0e;
+
+  /* Sticker / tag palette */
+  --color-tag-purple: #927cff;
+  --color-tag-pink: #d82363;
+  --color-tag-blue: #189ffa;
+  --color-tag-yellow: #ffc700;
+
+  /* Misc palette */
+  --color-sand: #e8e7e3;
+  --color-coral: #f7a7a6;
+  --color-sky: #7ec6dc;
+
+  /* Fonts */
+  --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
+  --font-caveat: var(--font-caveat-brush);
+  --font-carter: var(--font-carter-one);
+  --font-marker: var(--font-inter);
+
+  /* Layout */
+  --breakpoint-xl: 1440px;
+}
+
+:root {
+  --dot-color: rgba(16, 24, 40, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle dot-grid backdrop used across the site */
+.dot-grid {
+  background-image: radial-gradient(var(--dot-color) 1.2px, transparent 1.2px);
+  background-size: 36px 36px;
+  background-position: -8px -8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
