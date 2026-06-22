@@ -211,7 +211,7 @@ export default function Hero() {
             priority
             className="h-auto w-full"
           />
-          <div className="absolute left-[78%] top-[18%] ml-[20px] flex items-center gap-1.5 whitespace-nowrap">
+          <div className="absolute left-[78%] top-[18%] ml-[5px] flex items-center gap-1.5 whitespace-nowrap">
             <span className="font-carter text-[clamp(14px,3.6vw,22px)] leading-none pt-3 text-transparent [-webkit-text-stroke:1px_#000]">&amp;</span>
             <span className="font-caveat text-[clamp(22px,6vw,34px)] leading-none text-brand">I Care !!</span>
           </div>
