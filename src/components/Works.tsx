@@ -20,7 +20,7 @@ export default function Works() {
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute bottom-0 left-0 hidden w-[340px] min-[900px]:block lg:w-[460px] xl:w-[560px]"
+          className="pointer-events-none absolute bottom-0 left-0 hidden w-[460px] min-[900px]:block xl:w-[560px]"
         >
           <Image
             src="/images/works-character.svg"
