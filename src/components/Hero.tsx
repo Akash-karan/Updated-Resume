@@ -112,7 +112,7 @@ function FloatingTag({ tag }: { tag: Tag }) {
 
   return (
     <motion.div
-      className={`pointer-events-none absolute z-20 hidden lg:flex flex-col gap-2 ${
+      className={`pointer-events-none absolute z-20 hidden min-[900px]:flex flex-col gap-2 ${
         tag.align === "end" ? "items-end" : "items-start"
       }`}
       style={{ ...tag.style, willChange: "transform" }}
@@ -143,10 +143,10 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="dot-grid relative w-full overflow-hidden pt-28 pb-12 sm:pt-32 lg:pt-0"
+      className="dot-grid relative w-full overflow-hidden pt-28 pb-12 sm:pt-32 min-[900px]:pt-0"
     >
       {/* Large-screen artistic stage */}
-      <div className="relative mx-auto hidden w-full max-w-[1440px] lg:-mt-[25px] lg:block" style={{ aspectRatio: "1440 / 768" }}>
+      <div className="relative mx-auto hidden w-full max-w-[1440px] min-[900px]:-mt-[25px] min-[900px]:block" style={{ aspectRatio: "1440 / 768" }}>
         {tags.map((tag) => (
           <FloatingTag key={tag.label} tag={tag} />
         ))}
@@ -196,7 +196,7 @@ export default function Hero() {
       </div>
 
       {/* Mobile / tablet stacked layout */}
-      <div className="mx-auto flex max-w-2xl flex-col items-center px-6 text-center lg:hidden">
+      <div className="mx-auto flex max-w-2xl flex-col items-center px-6 text-center min-[900px]:hidden">
         <div className="mb-4 flex flex-wrap items-center justify-center gap-2">
           <Pill tag={tags[0]} />
           <Pill tag={tags[2]} />
