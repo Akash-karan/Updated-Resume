@@ -18,7 +18,6 @@ function smoothScrollTo(href: string) {
       window.scrollTo({ top: centered - 25, behavior: "smooth" });
     }
   }
-  if (typeof history !== "undefined") history.replaceState(null, "", href);
 }
 
 function SocialLinks({ size = "md" }: { size?: "md" | "lg" }) {
