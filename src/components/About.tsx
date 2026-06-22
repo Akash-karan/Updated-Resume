@@ -47,7 +47,7 @@ export default function About() {
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute bottom-0 right-[3%] hidden w-[260px] lg:block xl:w-[308px]"
+          className="pointer-events-none absolute bottom-0 right-[3%] hidden w-[260px] min-[900px]:block xl:w-[308px]"
         >
           <Image
             src="/images/about-character.svg"
