@@ -152,7 +152,7 @@ export default function Hero() {
         ))}
 
         {/* Title cluster */}
-        <div className="absolute left-1/2 top-[28.6%] flex w-[38.5%] -translate-x-1/2 flex-col items-center gap-3">
+        <div className="absolute left-1/2 top-[28.6%] flex w-[38.5%] -translate-x-1/2 flex-col items-center gap-3 max-[1023px]:-translate-y-[45px]">
           <div className="relative w-full">
             <Image
               src="/images/hero-title-t.png"
