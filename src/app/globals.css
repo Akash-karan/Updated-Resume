@@ -38,7 +38,8 @@
 }
 
 :root {
-  --dot-color: rgba(16, 24, 40, 0.08);
+  /* Matches public/Background.svg: #49494A dots at 30% opacity */
+  --dot-color: rgba(73, 73, 74, 0.3);
 }
 
 html {
@@ -46,18 +47,19 @@ html {
 }
 
 body {
-  background-color: var(--color-canvas);
+  background-color: #ffffff;
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Subtle dot-grid backdrop used across the site */
+/* Dot-grid backdrop used across the site — mirrors public/Background.svg (18px grid) */
 .dot-grid {
-  background-image: radial-gradient(var(--dot-color) 1.2px, transparent 1.2px);
-  background-size: 36px 36px;
-  background-position: -8px -8px;
+  background-color: #ffffff;
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1.5px);
+  background-size: 18px 18px;
+  background-position: 9px 10px;
 }
 
 @media (prefers-reduced-motion: reduce) {
