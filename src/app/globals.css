@@ -38,8 +38,8 @@
 }
 
 :root {
-  /* Matches public/Background.svg: #49494A dots at 30% opacity */
-  --dot-color: rgba(73, 73, 74, 0.3);
+  /* Based on public/Background.svg (#49494A dots), softened to 10% opacity */
+  --dot-color: rgba(73, 73, 74, 0.1);
 }
 
 html {
