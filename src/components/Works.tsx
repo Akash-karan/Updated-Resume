@@ -31,7 +31,7 @@ export default function Works() {
           />
         </motion.div>
 
-        <div className="flex flex-col items-end">
+        <div className="flex flex-col items-start min-[900px]:items-end">
           <div className="flex w-full max-w-[463px] flex-col gap-6">
             <div className="flex flex-col gap-0.5">
               <h2 className="font-sans text-[28px] font-bold leading-tight tracking-[-0.8px] text-black sm:text-[40px] sm:leading-[1.4]">

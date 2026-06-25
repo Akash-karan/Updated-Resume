@@ -97,6 +97,13 @@ function Pill({ tag }: { tag: Tag }) {
 }
 
 function FloatingTag({ tag }: { tag: Tag }) {
+  const positionStyle: React.CSSProperties = {
+    ...tag.style,
+    ...(typeof tag.style.top === "string" ? { top: `calc(${tag.style.top} - 30px)` } : {}),
+    ...(typeof tag.style.bottom === "string" ? { bottom: `calc(${tag.style.bottom} + 30px)` } : {}),
+    willChange: "transform",
+  };
+
   // Arrows that sit below the pill are flipped vertically so the cursor points outward/down.
   const arrowImg = (
     <Image
@@ -115,7 +122,7 @@ function FloatingTag({ tag }: { tag: Tag }) {
       className={`pointer-events-none absolute z-20 hidden min-[900px]:flex flex-col gap-2 ${
         tag.align === "end" ? "items-end" : "items-start"
       }`}
-      style={{ ...tag.style, willChange: "transform" }}
+      style={positionStyle}
       // x and y peak at different moments so the tag traces a soft, looping
       // path (instead of a straight diagonal) — reads as organic floating.
       animate={{
@@ -146,14 +153,14 @@ export default function Hero() {
       className="dot-grid relative w-full overflow-hidden pt-28 pb-12 sm:pt-32 min-[900px]:pt-0"
     >
       {/* Large-screen artistic stage */}
-      <div className="relative mx-auto hidden w-full max-w-[1440px] min-[900px]:-mt-[25px] min-[900px]:block" style={{ aspectRatio: "1440 / 768" }}>
+      <div className="relative mx-auto hidden w-full max-w-[1440px] min-[900px]:-mt-[65px] min-[900px]:block" style={{ aspectRatio: "1440 / 768" }}>
         {tags.map((tag) => (
           <FloatingTag key={tag.label} tag={tag} />
         ))}
 
         {/* Title cluster */}
         <div className="absolute left-1/2 top-[28.6%] flex w-[38.5%] -translate-x-1/2 flex-col items-center gap-3 max-[1023px]:-translate-y-[45px]">
-          <div className="relative w-full">
+          <div className="relative w-full -translate-y-[30px]">
             <Image
               src="/images/hero-title-t.png"
               alt="I Do Design"

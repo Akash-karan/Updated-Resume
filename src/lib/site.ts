@@ -14,6 +14,10 @@ export const site = {
   },
 } as const;
 
+export const gmailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+  site.email,
+)}`;
+
 export const nav = [
   { label: "About Me", href: "#about" },
   { label: "Projects", href: "#works" },

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { nav, site } from "@/lib/site";
+import { gmailComposeHref, nav, site } from "@/lib/site";
 import { DownloadIcon } from "@/components/icons";
 
 function smoothScrollTo(href: string) {
@@ -122,7 +122,9 @@ export default function Nav() {
           </div>
 
           <a
-            href={`mailto:${site.email}`}
+            href={gmailComposeHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-full border border-brand bg-brand px-[14px] py-2.5 text-[14px] font-black text-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-[3px] hover:shadow-[0px_6px_0px_0px_#000] active:translate-y-0 active:shadow-none"
           >
             Contact
@@ -205,7 +207,9 @@ export default function Nav() {
                 <SocialLinks size="lg" />
               </div>
               <a
-                href={`mailto:${site.email}`}
+                href={gmailComposeHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
                 className="inline-flex items-center justify-center rounded-full border border-brand bg-brand px-4 py-2.5 text-[14px] font-black text-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-[3px] hover:shadow-[0px_6px_0px_0px_#000] active:translate-y-0 active:shadow-[0px_6px_0px_0px_#000]"
               >

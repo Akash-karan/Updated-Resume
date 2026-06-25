@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { gmailComposeHref, site } from "@/lib/site";
 import { XIcon, LinkedInIcon } from "@/components/icons";
 
 export default function Footer() {
@@ -61,7 +61,9 @@ export default function Footer() {
         {/* Bottom: copyright */}
         <div className="flex w-full flex-col items-center gap-2 text-center sm:flex-row sm:justify-between sm:text-left">
           <a
-            href={`mailto:${site.email}`}
+            href={gmailComposeHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-[16px] font-medium text-white transition-colors hover:text-brand sm:text-[20px]"
           >
             {site.email}
