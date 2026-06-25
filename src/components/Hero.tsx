@@ -23,7 +23,7 @@ type Tag = {
   duration: number;
   /** stagger offset so tags drift independently */
   delay: number;
-  /** absolute upward shift for the 901px-1038px hero stage */
+  /** absolute upward shift for the 901px-1035px hero stage */
   midRangeLift?: number;
 };
 
@@ -41,7 +41,7 @@ const tags: Tag[] = [
     rotate: -2,
     duration: 6,
     delay: 0,
-    midRangeLift: 50,
+    midRangeLift: 20,
   },
   {
     label: "Illustrate",
@@ -105,7 +105,7 @@ function useMidRangeHeroLayout() {
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {
-    const query = window.matchMedia("(min-width: 901px) and (max-width: 1038px)");
+    const query = window.matchMedia("(min-width: 901px) and (max-width: 1035px)");
     const update = () => setMatches(query.matches);
 
     update();
