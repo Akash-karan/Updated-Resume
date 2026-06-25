@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -22,6 +23,8 @@ type Tag = {
   duration: number;
   /** stagger offset so tags drift independently */
   delay: number;
+  /** extra upward shift for the 901px-1038px hero stage */
+  midRangeLift?: number;
 };
 
 const tags: Tag[] = [
@@ -38,13 +41,14 @@ const tags: Tag[] = [
     rotate: -2,
     duration: 6,
     delay: 0,
+    midRangeLift: 20,
   },
   {
     label: "Illustrate",
     bg: "#d82363",
     text: "#ffffff",
     arrow: "/images/arrow-2.svg",
-    style: { left: "19.4%", bottom: "31%", marginLeft: "30px" },
+    style: { left: "23%", bottom: "30.5%" },
     arrowAbove: true,
     align: "end",
     // bottom-left → drift toward title (right + up)
@@ -67,6 +71,7 @@ const tags: Tag[] = [
     rotate: 2,
     duration: 6,
     delay: 3,
+    midRangeLift: 20,
   },
   {
     label: "User Research",
@@ -96,13 +101,24 @@ function Pill({ tag }: { tag: Tag }) {
   );
 }
 
-function FloatingTag({ tag }: { tag: Tag }) {
-  const positionStyle: React.CSSProperties = {
-    ...tag.style,
-    ...(typeof tag.style.top === "string" ? { top: `calc(${tag.style.top} - 30px)` } : {}),
-    ...(typeof tag.style.bottom === "string" ? { bottom: `calc(${tag.style.bottom} + 30px)` } : {}),
-    willChange: "transform",
-  };
+function useMidRangeHeroLayout() {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 901px) and (max-width: 1038px)");
+    const update = () => setMatches(query.matches);
+
+    update();
+    query.addEventListener("change", update);
+
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  return matches;
+}
+
+function FloatingTag({ tag, midRangeLiftActive }: { tag: Tag; midRangeLiftActive: boolean }) {
+  const yOffset = midRangeLiftActive ? -(tag.midRangeLift ?? 0) : 0;
 
   // Arrows that sit below the pill are flipped vertically so the cursor points outward/down.
   const arrowImg = (
@@ -122,12 +138,12 @@ function FloatingTag({ tag }: { tag: Tag }) {
       className={`pointer-events-none absolute z-20 hidden min-[900px]:flex flex-col gap-2 ${
         tag.align === "end" ? "items-end" : "items-start"
       }`}
-      style={positionStyle}
+      style={{ ...tag.style, willChange: "transform" }}
       // x and y peak at different moments so the tag traces a soft, looping
       // path (instead of a straight diagonal) — reads as organic floating.
       animate={{
         x: [0, tag.driftX, tag.driftX * 0.35, 0],
-        y: [0, tag.driftY * 0.35, tag.driftY, 0],
+        y: [yOffset, yOffset + tag.driftY * 0.35, yOffset + tag.driftY, yOffset],
         rotate: [0, tag.rotate, -tag.rotate * 0.6, 0],
       }}
       transition={{
@@ -147,6 +163,8 @@ function FloatingTag({ tag }: { tag: Tag }) {
 }
 
 export default function Hero() {
+  const midRangeLiftActive = useMidRangeHeroLayout();
+
   return (
     <section
       id="top"
@@ -155,7 +173,7 @@ export default function Hero() {
       {/* Large-screen artistic stage */}
       <div className="relative mx-auto hidden w-full max-w-[1440px] min-[900px]:-mt-[65px] min-[900px]:block" style={{ aspectRatio: "1440 / 768" }}>
         {tags.map((tag) => (
-          <FloatingTag key={tag.label} tag={tag} />
+          <FloatingTag key={tag.label} tag={tag} midRangeLiftActive={midRangeLiftActive} />
         ))}
 
         {/* Title cluster */}
@@ -205,8 +223,12 @@ export default function Hero() {
       {/* Mobile / tablet stacked layout */}
       <div className="mx-auto flex max-w-2xl flex-col items-center px-6 text-center min-[900px]:hidden">
         <div className="mb-4 flex flex-wrap items-center justify-center gap-2">
-          <Pill tag={tags[0]} />
-          <Pill tag={tags[2]} />
+          <span className="relative -top-[30px] inline-flex">
+            <Pill tag={tags[0]} />
+          </span>
+          <span className="relative -top-[30px] inline-flex">
+            <Pill tag={tags[2]} />
+          </span>
         </div>
 
         <div className="relative w-[88%] max-w-md">
