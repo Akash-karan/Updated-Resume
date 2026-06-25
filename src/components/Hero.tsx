@@ -33,7 +33,7 @@ const tags: Tag[] = [
     bg: "#927cff",
     text: "#ffffff",
     arrow: "/images/arrow-1.svg",
-    style: { left: "26.4%", top: "26.2%" },
+    style: { left: "27.4%", top: "26.8%" },
     align: "end",
     // top-left → drift toward title (right + down)
     driftX: 12,
@@ -63,7 +63,7 @@ const tags: Tag[] = [
     bg: "#189ffa",
     text: "#ffffff",
     arrow: "/images/arrow-3.svg",
-    style: { left: "72.4%", top: "24.7%" },
+    style: { left: "72.9%", top: "26.6%" },
     align: "start",
     // top-right → drift toward title (left + down)
     driftX: -12,
