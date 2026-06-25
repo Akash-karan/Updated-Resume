@@ -23,7 +23,7 @@ type Tag = {
   duration: number;
   /** stagger offset so tags drift independently */
   delay: number;
-  /** extra upward shift for the 901px-1038px hero stage */
+  /** absolute upward shift for the 901px-1038px hero stage */
   midRangeLift?: number;
 };
 
@@ -41,7 +41,7 @@ const tags: Tag[] = [
     rotate: -2,
     duration: 6,
     delay: 0,
-    midRangeLift: 20,
+    midRangeLift: 50,
   },
   {
     label: "Illustrate",
@@ -71,7 +71,7 @@ const tags: Tag[] = [
     rotate: 2,
     duration: 6,
     delay: 3,
-    midRangeLift: 20,
+    midRangeLift: 50,
   },
   {
     label: "User Research",
@@ -118,7 +118,13 @@ function useMidRangeHeroLayout() {
 }
 
 function FloatingTag({ tag, midRangeLiftActive }: { tag: Tag; midRangeLiftActive: boolean }) {
-  const yOffset = midRangeLiftActive ? -(tag.midRangeLift ?? 0) : 0;
+  const positionStyle: React.CSSProperties = {
+    ...tag.style,
+    ...(midRangeLiftActive && tag.midRangeLift && typeof tag.style.top === "string"
+      ? { top: `calc(${tag.style.top} - ${tag.midRangeLift}px)` }
+      : {}),
+    willChange: "transform",
+  };
 
   // Arrows that sit below the pill are flipped vertically so the cursor points outward/down.
   const arrowImg = (
@@ -138,12 +144,12 @@ function FloatingTag({ tag, midRangeLiftActive }: { tag: Tag; midRangeLiftActive
       className={`pointer-events-none absolute z-20 hidden min-[900px]:flex flex-col gap-2 ${
         tag.align === "end" ? "items-end" : "items-start"
       }`}
-      style={{ ...tag.style, willChange: "transform" }}
+      style={positionStyle}
       // x and y peak at different moments so the tag traces a soft, looping
       // path (instead of a straight diagonal) — reads as organic floating.
       animate={{
         x: [0, tag.driftX, tag.driftX * 0.35, 0],
-        y: [yOffset, yOffset + tag.driftY * 0.35, yOffset + tag.driftY, yOffset],
+        y: [0, tag.driftY * 0.35, tag.driftY, 0],
         rotate: [0, tag.rotate, -tag.rotate * 0.6, 0],
       }}
       transition={{
