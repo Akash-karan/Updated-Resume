@@ -33,7 +33,7 @@ const tags: Tag[] = [
     bg: "#927cff",
     text: "#ffffff",
     arrow: "/images/arrow-1.svg",
-    style: { left: "27.4%", top: "26.8%" },
+    style: { left: "calc(27.4% - 6px)", top: "26.8%" },
     align: "end",
     // top-left → drift toward title (right + down)
     driftX: 12,
