@@ -90,6 +90,8 @@ const tags: Tag[] = [
   },
 ];
 
+const cursorTopLift = 25;
+
 function Pill({ tag }: { tag: Tag }) {
   return (
     <span
@@ -117,11 +119,32 @@ function useMidRangeHeroLayout() {
   return matches;
 }
 
+function useHeroBreakpointShift() {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 1000px) and (max-width: 1030px)");
+    const update = () => setMatches(query.matches);
+
+    update();
+    query.addEventListener("change", update);
+
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  return matches;
+}
+
 function FloatingTag({ tag, midRangeLiftActive }: { tag: Tag; midRangeLiftActive: boolean }) {
+  const midRangeLift = midRangeLiftActive && tag.midRangeLift ? tag.midRangeLift : 0;
+
   const positionStyle: React.CSSProperties = {
     ...tag.style,
-    ...(midRangeLiftActive && tag.midRangeLift && typeof tag.style.top === "string"
-      ? { top: `calc(${tag.style.top} - ${tag.midRangeLift}px)` }
+    ...(typeof tag.style.top === "string"
+      ? { top: `calc(${tag.style.top} - ${cursorTopLift}px - ${midRangeLift}px)` }
+      : {}),
+    ...(typeof tag.style.bottom === "string"
+      ? { bottom: `calc(${tag.style.bottom} + ${cursorTopLift}px)` }
       : {}),
     willChange: "transform",
   };
@@ -170,6 +193,9 @@ function FloatingTag({ tag, midRangeLiftActive }: { tag: Tag; midRangeLiftActive
 
 export default function Hero() {
   const midRangeLiftActive = useMidRangeHeroLayout();
+  const heroBreakpointShiftActive = useHeroBreakpointShift();
+  const titleClusterShiftClass = heroBreakpointShiftActive ? "translate-y-[20px]" : "";
+  const stickyNoteShiftClass = heroBreakpointShiftActive ? "translate-y-[20px]" : "";
 
   return (
     <section
@@ -183,8 +209,10 @@ export default function Hero() {
         ))}
 
         {/* Title cluster */}
-        <div className="absolute left-1/2 top-[28.6%] flex w-[38.5%] -translate-x-1/2 flex-col items-center gap-3 max-[1023px]:-translate-y-[45px]">
-          <div className="relative w-full -translate-y-[30px]">
+        <div
+          className="absolute left-1/2 top-[28.6%] flex w-[38.5%] -translate-x-1/2 flex-col items-center gap-3 max-[1023px]:-translate-y-[45px]"
+        >
+          <div className={`relative w-full -translate-y-[30px] ${titleClusterShiftClass}`}>
             <Image
               src="/images/hero-title-t.png"
               alt="I Do Design"
@@ -200,7 +228,7 @@ export default function Hero() {
           </div>
 
           {/* Sticky note */}
-          <div className="rotate-[-3deg]">
+          <div className={`rotate-[-3deg] ${stickyNoteShiftClass}`}>
             <div className="relative inline-block">
               <Image
                 src="/images/note-tape.svg"
@@ -228,7 +256,7 @@ export default function Hero() {
 
       {/* Mobile / tablet stacked layout */}
       <div className="mx-auto flex max-w-2xl flex-col items-center px-6 text-center min-[900px]:hidden">
-        <div className="mb-4 flex flex-wrap items-center justify-center gap-2">
+        <div className="mb-5 flex flex-wrap items-center justify-center gap-2">
           <span className="relative -top-[30px] inline-flex">
             <Pill tag={tags[0]} />
           </span>
@@ -237,7 +265,7 @@ export default function Hero() {
           </span>
         </div>
 
-        <div className="relative w-[88%] max-w-md">
+        <div className="relative mt-0 w-[88%] max-w-md">
           <Image
             src="/images/hero-title-t.png"
             alt="I Do Design"
