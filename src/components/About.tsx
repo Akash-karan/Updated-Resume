@@ -26,7 +26,7 @@ export default function About() {
               Lockdown gave me time. Design gave me purpose. I fell for the craft — the precision, the
               communication, the attention to detail that makes people feel something.
               <br />
-              Zero experience. Full commitment. Still going.
+              Fresh perspective. Full commitment. Still going.
             </p>
           </div>
 
