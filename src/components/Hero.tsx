@@ -90,7 +90,7 @@ const tags: Tag[] = [
   },
 ];
 
-const cursorTopLift = 25;
+const cursorBreakpointLift = 25;
 
 function Pill({ tag }: { tag: Tag }) {
   return (
@@ -119,11 +119,11 @@ function useMidRangeHeroLayout() {
   return matches;
 }
 
-function useHeroBreakpointShift() {
+function useCursorBreakpointLift() {
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {
-    const query = window.matchMedia("(min-width: 1000px) and (max-width: 1030px)");
+    const query = window.matchMedia("(min-width: 910px) and (max-width: 1100px)");
     const update = () => setMatches(query.matches);
 
     update();
@@ -135,16 +135,26 @@ function useHeroBreakpointShift() {
   return matches;
 }
 
-function FloatingTag({ tag, midRangeLiftActive }: { tag: Tag; midRangeLiftActive: boolean }) {
+function FloatingTag({
+  tag,
+  midRangeLiftActive,
+  cursorLiftActive,
+}: {
+  tag: Tag;
+  midRangeLiftActive: boolean;
+  cursorLiftActive: boolean;
+}) {
   const midRangeLift = midRangeLiftActive && tag.midRangeLift ? tag.midRangeLift : 0;
+  const breakpointLift = cursorLiftActive ? cursorBreakpointLift : 0;
 
   const positionStyle: React.CSSProperties = {
     ...tag.style,
+    position: "absolute",
     ...(typeof tag.style.top === "string"
-      ? { top: `calc(${tag.style.top} - ${cursorTopLift}px - ${midRangeLift}px)` }
+      ? { top: `calc(${tag.style.top} - ${midRangeLift}px - ${breakpointLift}px)` }
       : {}),
-    ...(typeof tag.style.bottom === "string"
-      ? { bottom: `calc(${tag.style.bottom} + ${cursorTopLift}px)` }
+    ...(breakpointLift && typeof tag.style.bottom === "string"
+      ? { bottom: `calc(${tag.style.bottom} + ${breakpointLift}px)` }
       : {}),
     willChange: "transform",
   };
@@ -193,9 +203,7 @@ function FloatingTag({ tag, midRangeLiftActive }: { tag: Tag; midRangeLiftActive
 
 export default function Hero() {
   const midRangeLiftActive = useMidRangeHeroLayout();
-  const heroBreakpointShiftActive = useHeroBreakpointShift();
-  const titleClusterShiftClass = heroBreakpointShiftActive ? "translate-y-[20px]" : "";
-  const stickyNoteShiftClass = heroBreakpointShiftActive ? "translate-y-[20px]" : "";
+  const cursorLiftActive = useCursorBreakpointLift();
 
   return (
     <section
@@ -205,14 +213,19 @@ export default function Hero() {
       {/* Large-screen artistic stage */}
       <div className="relative mx-auto hidden w-full max-w-[1440px] min-[900px]:-mt-[65px] min-[900px]:block" style={{ aspectRatio: "1440 / 768" }}>
         {tags.map((tag) => (
-          <FloatingTag key={tag.label} tag={tag} midRangeLiftActive={midRangeLiftActive} />
+          <FloatingTag
+            key={tag.label}
+            tag={tag}
+            midRangeLiftActive={midRangeLiftActive}
+            cursorLiftActive={cursorLiftActive}
+          />
         ))}
 
         {/* Title cluster */}
         <div
           className="absolute left-1/2 top-[28.6%] flex w-[38.5%] -translate-x-1/2 flex-col items-center gap-3 max-[1023px]:-translate-y-[45px]"
         >
-          <div className={`relative w-full -translate-y-[30px] ${titleClusterShiftClass}`}>
+          <div className="relative w-full -translate-y-[30px]">
             <Image
               src="/images/hero-title-t.png"
               alt="I Do Design"
@@ -228,7 +241,7 @@ export default function Hero() {
           </div>
 
           {/* Sticky note */}
-          <div className={`rotate-[-3deg] ${stickyNoteShiftClass}`}>
+          <div className="rotate-[-3deg]">
             <div className="relative inline-block">
               <Image
                 src="/images/note-tape.svg"
