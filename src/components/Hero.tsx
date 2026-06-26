@@ -269,13 +269,11 @@ export default function Hero() {
 
       {/* Mobile / tablet stacked layout */}
       <div className="mx-auto flex max-w-2xl flex-col items-center px-6 text-center min-[900px]:hidden">
-        <div className="mb-5 flex flex-wrap items-center justify-center gap-2">
-          <span className="relative -top-[30px] inline-flex">
+        <div className="relative mb-5 h-8 w-full">
+          <div className="absolute inset-x-0 top-[-10px] flex flex-wrap items-center justify-center gap-2">
             <Pill tag={tags[0]} />
-          </span>
-          <span className="relative -top-[30px] inline-flex">
             <Pill tag={tags[2]} />
-          </span>
+          </div>
         </div>
 
         <div className="relative mt-0 w-[88%] max-w-md">
